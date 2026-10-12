@@ -1,6 +1,6 @@
 # Verification record
 
-Local build verified and paused production deployed on **12 October 2026** on Windows, Node 26.10.0, installed Chrome, Wrangler 4.149.0 and Cloudflare Vite plugin 1.63.1. Production is **https://w3rise-studio.w3rise-studio.workers.dev**, version `3529810a-0a14-4003-a82c-1550252ed90e`. No real Paynow payment, bank settlement, outbound customer message or live purchase was performed. Local test records are explicitly fictional and excluded from live totals; production contains zero orders.
+Local build verified and paused production deployed on **12 October 2026** on Windows, Node 26.10.0, installed Chrome, Wrangler 4.149.0 and Cloudflare Vite plugin 1.63.1. Production is **https://w3rise-studio.w3rise-studio.workers.dev**, version `23b8820b-c1a0-4a73-afd4-22c07b930c3a`, from source commit `4a9097371f6ed5c187f320eafd7fc9e658f9d5cc`. No real Paynow payment, bank settlement, outbound customer message or live purchase was performed. Local test records are explicitly fictional and excluded from live totals; production contains zero orders.
 
 ## Executed checks
 
@@ -20,6 +20,7 @@ Local build verified and paused production deployed on **12 October 2026** on Wi
 | Actual PDF and images | Exported PDF reopened and rendered with PDF.js; its A4 page and all three Status PNGs visually inspected, with readable text and safe margins. Desk shows the exact raster embedded in the PDF | `npm run test:pdf`, `exported-A4-pdf-render.png`, versioned private PNGs |
 | Public asset privacy | Built public files contain no test customer markers, server secret/token markers, source maps, private directories or customer deliverable filenames | `npm run test:assets` (15 text assets), manual build/source review |
 | Paused live deployment | 17 checks pass against the actual HTTPS origin: public pages/samples and canonical/share metadata load; production local bypass is off; anonymous admin pages, queue, exports and settings action return 403; empty submission returns paused 503 | `npm run test:deployed -- https://w3rise-studio.w3rise-studio.workers.dev`, private `deployment-evidence.json` |
+| Deployed responsive pages | All four public routes inspected at 1440, 390 and 320 px: 12 views pass with no horizontal overflow, broken images or JavaScript page errors; corrected terms/privacy headings are readable | Private `deployed-browser-evidence.json` and `deployed-*.png`; screenshots inspected at original resolution |
 | Remote database | Migration applied; query after anonymous checks confirms `orders_count=0` and persistent `orders_open=false` | Remote Wrangler D1 read-only query; no customer brief or payment submitted |
 
 Run `npm run db:migrate` before `npm run verify`. Browser tests create local fictional records and require Chrome, Edge, an explicit `PLAYWRIGHT_EXECUTABLE_PATH`, or Playwright Chromium. Generator/PDF inspections use short-lived loopback servers and close them when complete. Private artifacts and local D1 state are ignored by Git and excluded from public assets.
@@ -31,7 +32,7 @@ Run `npm run db:migrate` before `npm run verify`. Browser tests create local fic
 - Browser-native embedded PDF viewing could show blank. The desk now uses the exact A4 artwork preview, links to the actual PDF, and the actual export is independently rendered for QA.
 - Export inspection caught intermittently missing drawn content. The generator now uses software-backed canvases, waits for fonts, and the browser suite checks visible heading pixels in every output; those checks and subsequent visual inspection pass.
 - Stale drafts and browser-local logos could otherwise change output without a trustworthy version. Pinned edit timestamps, persisted logo fingerprints, explicit reload, matching-file checks and generation/review invalidation repair those paths.
-- Deployed visual inspection found literal line-break markup in the terms/privacy headings. The headings now use actual React line breaks. Final deployed desktop/mobile inspection is pending the follow-up source deployment.
+- Deployed visual inspection found literal line-break markup in the terms/privacy headings. The headings now use actual React line breaks; the final deployed desktop/mobile/narrow views were rechecked and visually inspected.
 
 The final checks above pass. The responsive navigation/gallery check was rerun after the final control-size adjustments and passed. The three downloaded workflow PNGs were independently decoded again to confirm their saved heading content, and the A4 PDF and all three PNGs were inspected at original resolution. Deployment with an unset database configuration is intentionally refused by `preflight-deploy.mjs`; the actual configured database and Worker have now been deployed while intake remains paused.
 

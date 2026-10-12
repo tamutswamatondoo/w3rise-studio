@@ -1,6 +1,6 @@
 # Cloudflare deployment
 
-Deployed on 12 October 2026 at **https://w3rise-studio.w3rise-studio.workers.dev**, Worker version `3529810a-0a14-4003-a82c-1550252ed90e`. The authenticated owner-controlled account and actual `studio-db` D1 binding are recorded in `wrangler.jsonc`; the remote migration is applied. Intake is paused in configuration and the persistent database setting. Anonymous operator routes return 403 because Access configuration is still missing; owner sign-in is not yet available. No customer orders or payment records were created remotely.
+Deployed on 12 October 2026 at **https://w3rise-studio.w3rise-studio.workers.dev**, Worker version `23b8820b-c1a0-4a73-afd4-22c07b930c3a`, from source commit `4a9097371f6ed5c187f320eafd7fc9e658f9d5cc`. The authenticated owner-controlled account and actual `studio-db` D1 binding are recorded in `wrangler.jsonc`; the remote migration is applied. Intake is paused in configuration and the persistent database setting. Anonymous operator routes return 403 because Access configuration is still missing; owner sign-in is not yet available. No customer orders or payment records were created remotely.
 
 Account connection, database creation, migrations and the first paused deployment below are already complete for this installation. Continue with the missing owner settings, Access and Turnstile, then acceptance checks. Keep the Workers Free plan; do not enable paid subscriptions. No domain purchase is needed.
 
