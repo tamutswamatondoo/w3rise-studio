@@ -16,6 +16,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:production": "node tests/api.production.mjs",
+    "test:deployed": "node scripts/verify-paused-deployment.mjs",
     "test:assets": "node tests/assets.mjs",
     "test:generator": "node scripts/verify-generator.mjs",
     "test:pdf": "node scripts/inspect-exported-pdf.mjs",

@@ -2,9 +2,11 @@
 
 Production orders stay paused until the following items are complete. This is a launch preparation guide; no outreach has been sent and no real payments have been made as part of development.
 
+The account connection, remote D1 migration and paused deployment at https://w3rise-studio.w3rise-studio.workers.dev are complete. Local fictional fulfilment passed; production remains empty. Public anonymous checks passed, but the Access owner sign-in flow and production Turnstile await configuration.
+
 ## Owner decisions required together
 
-- Confirm the Cloudflare account, `workers.dev` address, authorized operator email, Access team/audience and Turnstile keys.
+- Confirm the connected Cloudflare account and published `workers.dev` address are the intended production home. Select the authorized operator email, configure the Access team/application/audience and create production Turnstile keys using [DEPLOYMENT.md](DEPLOYMENT.md). Put secrets only into private Wrangler prompts or encrypted dashboard fields.
 - Confirm the public WhatsApp and support/privacy email, response hours and timezone. The Paynow recipient is not automatically the support or operator identity.
 - Confirm that `tamutswamatondo04@gmail.com` is the intended merchant recipient, that USD checkout is available, and how the operator will inspect Paynow transactions, fees and settlement.
 - Adopt or edit the displayed draft service terms: one consolidated revision, how/when customers submit it, cancellations, refund enquiries, supplied-information approval and delivery channel.
@@ -17,7 +19,7 @@ Production orders stay paused until the following items are complete. This is a 
 - Verify samples clearly say “Sample concept — not a client project”; no invented results, affiliations or customer claims appear.
 - Read the exact scope: an A4 PDF, three Status PNGs, approved template customization and one consolidated revision for US$20. Printing, a new logo, editable source files and advertising placement are excluded.
 - Confirm contact actions reach the owner's actual account, the user chooses whether to send the WhatsApp message, and failure fallback preserves the brief.
-- Run a fictional order through scope, manual test verification, generation, visual review and recorded test delivery. Confirm public visitors cannot read orders and test orders do not affect live totals.
+- The full fictional workflow has passed locally. After configuring Access/Turnstile and explicitly authorizing a controlled launch test, repeat it in production through scope, manual test verification, generation, visual review and recorded test delivery. Keep intake paused throughout configuration and anonymous verification; pause it again immediately after the authorized test submission. Confirm public visitors cannot read orders and test orders do not affect live totals.
 - Open every export; inspect the PDF at readable size and three PNGs at their full dimensions. Confirm revised content loses approval and unpaid/unreviewed orders are blocked.
 - Confirm public terms/privacy reflect the chosen policies and the real canonical/share origin. Read [verification limitations](VERIFICATION.md).
 - Open intake, submit one genuine brief only when ready, personally confirm its scope/timing, and send the order-specific USD payment instructions.

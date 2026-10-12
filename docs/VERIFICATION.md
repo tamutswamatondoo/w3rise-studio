@@ -1,6 +1,6 @@
 # Verification record
 
-Local build verified on **12 October 2026** on Windows, Node 26.10.0, installed Chrome, Wrangler 4.149.0 and Cloudflare Vite plugin 1.63.1. No public deployment, real Paynow payment, bank settlement, outbound customer message or live purchase was performed. Test records are explicitly fictional and excluded from live totals.
+Local build verified and paused production deployed on **12 October 2026** on Windows, Node 26.10.0, installed Chrome, Wrangler 4.149.0 and Cloudflare Vite plugin 1.63.1. Production is **https://w3rise-studio.w3rise-studio.workers.dev**, version `3529810a-0a14-4003-a82c-1550252ed90e`. No real Paynow payment, bank settlement, outbound customer message or live purchase was performed. Local test records are explicitly fictional and excluded from live totals; production contains zero orders.
 
 ## Executed checks
 
@@ -19,6 +19,8 @@ Local build verified on **12 October 2026** on Windows, Node 26.10.0, installed 
 | Output integrity | Two complete preset packs, each A4 PDF at 595.28 × 841.89 points and three decoded 1080 × 1920 PNGs; long names, eight services and accented text; unsupported glyph/fit/unsafe logo errors are explicit | `npm run test:generator` (13 checks) |
 | Actual PDF and images | Exported PDF reopened and rendered with PDF.js; its A4 page and all three Status PNGs visually inspected, with readable text and safe margins. Desk shows the exact raster embedded in the PDF | `npm run test:pdf`, `exported-A4-pdf-render.png`, versioned private PNGs |
 | Public asset privacy | Built public files contain no test customer markers, server secret/token markers, source maps, private directories or customer deliverable filenames | `npm run test:assets` (15 text assets), manual build/source review |
+| Paused live deployment | 17 checks pass against the actual HTTPS origin: public pages/samples and canonical/share metadata load; production local bypass is off; anonymous admin pages, queue, exports and settings action return 403; empty submission returns paused 503 | `npm run test:deployed -- https://w3rise-studio.w3rise-studio.workers.dev`, private `deployment-evidence.json` |
+| Remote database | Migration applied; query after anonymous checks confirms `orders_count=0` and persistent `orders_open=false` | Remote Wrangler D1 read-only query; no customer brief or payment submitted |
 
 Run `npm run db:migrate` before `npm run verify`. Browser tests create local fictional records and require Chrome, Edge, an explicit `PLAYWRIGHT_EXECUTABLE_PATH`, or Playwright Chromium. Generator/PDF inspections use short-lived loopback servers and close them when complete. Private artifacts and local D1 state are ignored by Git and excluded from public assets.
 
@@ -29,13 +31,15 @@ Run `npm run db:migrate` before `npm run verify`. Browser tests create local fic
 - Browser-native embedded PDF viewing could show blank. The desk now uses the exact A4 artwork preview, links to the actual PDF, and the actual export is independently rendered for QA.
 - Export inspection caught intermittently missing drawn content. The generator now uses software-backed canvases, waits for fonts, and the browser suite checks visible heading pixels in every output; those checks and subsequent visual inspection pass.
 - Stale drafts and browser-local logos could otherwise change output without a trustworthy version. Pinned edit timestamps, persisted logo fingerprints, explicit reload, matching-file checks and generation/review invalidation repair those paths.
+- Deployed visual inspection found literal line-break markup in the terms/privacy headings. The headings now use actual React line breaks. Final deployed desktop/mobile inspection is pending the follow-up source deployment.
 
-The final checks above pass. The responsive navigation/gallery check was rerun after the final control-size adjustments and passed. The three downloaded workflow PNGs were independently decoded again to confirm their saved heading content, and the A4 PDF and all three PNGs were inspected at original resolution. Deployment with the unset database configuration is intentionally refused by `preflight-deploy.mjs`; this is the launch guard, not a deployed service.
+The final checks above pass. The responsive navigation/gallery check was rerun after the final control-size adjustments and passed. The three downloaded workflow PNGs were independently decoded again to confirm their saved heading content, and the A4 PDF and all three PNGs were inspected at original resolution. Deployment with an unset database configuration is intentionally refused by `preflight-deploy.mjs`; the actual configured database and Worker have now been deployed while intake remains paused.
 
 ## Remaining limits and deployment-only checks
 
-- Real Cloudflare Access sign-in/denial, all reachable production hostname paths, disabled Version URLs, deployed Turnstile, remote D1 persistence, real support links, canonical/share metadata and Workers CPU/quota behavior still require the owner's configured deployment. Cryptographic and production-bundle local tests are not proof of dashboard configuration.
+- The production configuration disables Version URLs and anonymous access is denied on the deployed public hostname. Real owner Access sign-in, wrong-identity denial, verification of all subsequently added hostnames, deployed Turnstile, real support links, a controlled production fictional workflow and Workers CPU/quota behavior still require owner configuration. Cryptographic and production-bundle tests are not proof of a completed Access dashboard policy. Worker startup time is not request CPU measurement.
 - Manual Paynow verification requires the owner's actual merchant account. Simple links remain tamperable, do not force USD and do not confirm fees or bank settlement.
 - The A4 PDF embeds sharp 200-dpi raster artwork; it has no editable/selectable text layer. Unsupported font glyphs stop generation for operator correction. Layout tests cover demanding valid examples, not every possible text combination.
 - Retention cleanup preserves paid financial records until the owner adopts their separate retention policy. Local downloads, backups and WhatsApp/Paynow records need separate handling.
 - No automated test establishes demand, legal policy suitability or owner capacity. Those decisions remain in the launch checklist.
+- Workers Logs/Traces remain disabled; aggregate dashboard metrics do not provide full diagnostic traces. No deployed request CPU or quota-load benchmark has been completed.

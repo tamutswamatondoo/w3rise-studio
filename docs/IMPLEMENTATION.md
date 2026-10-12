@@ -1,6 +1,6 @@
 # Implementation milestones
 
-All three milestones were completed locally on 12 October 2026. See [verification evidence](VERIFICATION.md), [deployment](DEPLOYMENT.md), [operator guide](OPERATOR.md) and [owner launch decisions](LAUNCH.md). No public deployment or real transaction was performed.
+All three milestones were completed locally on 12 October 2026. The application is now deployed at https://w3rise-studio.w3rise-studio.workers.dev with intake paused and the unconfigured operator desk denied. See [verification evidence](VERIFICATION.md), [deployment](DEPLOYMENT.md), [operator guide](OPERATOR.md) and [owner launch decisions](LAUNCH.md). No real transaction or customer delivery was performed.
 
 1. **Foundation and trust boundaries.** React/TypeScript/Vite, one Worker with Static Assets, D1 migrations, strict intake and idempotency, fail-closed Access authentication. Acceptance: persistent brief, rejected invalid/oversized input, no public state mutation or private data access.
 2. **Understandable offer and real fulfilment.** Original fictional samples, accessible mobile form, protected desk, manual Paynow verification, local four-file generator and versioned review/delivery. Acceptance: unpaid work cannot generate; unreviewed or stale versions cannot deliver; unique transaction IDs.

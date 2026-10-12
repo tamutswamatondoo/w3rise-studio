@@ -1,13 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "w3rise-studio",
+  "account_id": "b27c02ca3b26339261aa01193c574e97",
   "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
   "preview_urls": false,
   "assets": { "directory": "./dist/client", "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": true },
-  "d1_databases": [{ "binding": "DB", "database_name": "studio-db", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }],
+  "d1_databases": [{ "binding": "DB", "database_name": "studio-db", "database_id": "d884a89f-fc04-472b-9325-ada968030264", "migrations_dir": "migrations" }],
   "vars": {
     "APP_ENV": "production",
     "ORDERS_OPEN": "false",
@@ -20,7 +21,7 @@
     "ACCESS_AUD": "",
     "OWNER_EMAIL": "",
     "TURNSTILE_SITE_KEY": "",
-    "PUBLIC_ORIGIN": ""
+    "PUBLIC_ORIGIN": "https://w3rise-studio.w3rise-studio.workers.dev"
   },
   "observability": { "enabled": false }
 }
