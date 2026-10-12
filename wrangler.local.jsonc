@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "w3rise-studio-local",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": { "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": true },
+  "d1_databases": [{ "binding": "DB", "database_name": "studio-db", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }],
+  "vars": {
+    "APP_ENV": "local",
+    "LOCAL_AUTH": "enabled",
+    "ORDERS_OPEN": "true",
+    "PAYNOW_MERCHANT_EMAIL": "tamutswamatondo04@gmail.com",
+    "SUPPORT_EMAIL": "",
+    "SUPPORT_WHATSAPP": "",
+    "RESPONSE_HOURS": "Response hours will be confirmed by the owner.",
+    "RETENTION_DAYS": "180"
+  }
+}

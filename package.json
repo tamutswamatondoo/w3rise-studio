@@ -1,0 +1,54 @@
+{
+  "name": "w3rise-studio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node scripts/run-local.mjs dev",
+    "build": "tsc --noEmit && node scripts/run-local.mjs build",
+    "check": "tsc --noEmit",
+    "db:migrate": "node scripts/run-local.mjs migrate",
+    "db:migrate:remote": "wrangler d1 migrations apply studio-db --remote --config wrangler.jsonc",
+    "deploy": "node scripts/preflight-deploy.mjs && npm run build && wrangler deploy",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:production": "node tests/api.production.mjs",
+    "test:assets": "node tests/assets.mjs",
+    "test:generator": "node scripts/verify-generator.mjs",
+    "test:pdf": "node scripts/inspect-exported-pdf.mjs",
+    "samples": "node scripts/generate-samples.mjs",
+    "verify": "npm run check && npm test && npm run build && npm run test:production && npm run test:assets && npm run test:generator && npm run test:e2e && npm run test:pdf"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "5.3.0",
+    "@fontsource/dm-sans": "5.3.0",
+    "fflate": "0.8.3",
+    "jose": "6.2.12",
+    "lucide-react": "1.55.0",
+    "pdf-lib": "1.17.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.63.1",
+    "@cloudflare/workers-types": "5.20261011.1",
+    "@playwright/test": "1.64.0",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "miniflare": "5.20261006.1-alpha",
+    "pdfjs-dist": "6.4.299",
+    "typescript": "7.0.2",
+    "vite": "8.3.4",
+    "vitest": "5.0.3",
+    "wrangler": "4.149.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261006.1": true
+  }
+}

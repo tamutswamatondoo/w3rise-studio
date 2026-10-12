@@ -1,0 +1,8 @@
+# Optional local overrides. Copy to .dev.vars (ignored) for wrangler.local.jsonc.
+# Local Vite mode uses compile-time DEV + loopback + local-only config.
+# Never place secrets in VITE_ variables or frontend source.
+SUPPORT_EMAIL=""
+SUPPORT_WHATSAPP=""
+# Production: use `wrangler secret put NAME`, not this file.
+# TURNSTILE_SECRET_KEY
+# RATE_LIMIT_SALT (at least 32 random characters)
