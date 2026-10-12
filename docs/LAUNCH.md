@@ -30,6 +30,8 @@ The application enforces the one-revision allowance and payment/version/review g
 
 ## Before accepting a real order
 
+To restore Paynow access, open the official [Log On page](https://www.paynow.co.zw/User/LogIn), enter the existing registered merchant email privately and choose **Next**. Follow the account's recovery prompts if sign-in fails. If recovery is unavailable or you cannot access the registered email, use the support contact published on that page to request merchant account recovery. The owner must complete identity checks and any password change directly with Paynow; never put passwords, PINs or recovery codes in chat. After recovery, check **Receive Payments**, **View Transaction History** and **Manage Payment Bank Accounts**, then inspect USD checkout without treating an unpaid checkout as a payment. If no genuine transaction exists, record that fact and leave real payment verification pending; the technical rehearsal uses explicitly simulated records only. See the [official merchant FAQ](https://www.paynow.co.zw/home/merchanttutorial).
+
 - Complete the deployment and hostname security checks in [DEPLOYMENT.md](DEPLOYMENT.md).
 - Verify samples clearly say “Sample concept — not a client project”; no invented results, affiliations or customer claims appear.
 - Read the exact scope: an A4 PDF, three Status PNGs, approved template customization and one consolidated revision for US$20. Printing, a new logo, editable source files and advertising placement are excluded.
