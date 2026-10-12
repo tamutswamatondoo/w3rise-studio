@@ -4,11 +4,13 @@ Production orders stay paused until the following items are complete. This is a 
 
 The account connection, remote D1 migration and paused deployment at https://w3rise-studio.w3rise-studio.workers.dev are complete. Local fictional fulfilment passed; production remains empty. Public anonymous checks passed, but the Access owner sign-in flow and production Turnstile await configuration.
 
+Owner details supplied on 12 October 2026: operator/support email, public WhatsApp and confirmation of the supplied Paynow merchant recipient. Identity/contact values belong in private encrypted Cloudflare configuration. Response hours selected at the owner's request: Monday–Friday, 09:00–17:00 CAT (Africa/Harare). These configuration values do not complete Access, Turnstile, policy adoption or the controlled production test.
+
 ## Owner decisions required together
 
-- Confirm the connected Cloudflare account and published `workers.dev` address are the intended production home. Select the authorized operator email, configure the Access team/application/audience and create production Turnstile keys using [DEPLOYMENT.md](DEPLOYMENT.md). Put secrets only into private Wrangler prompts or encrypted dashboard fields.
-- Confirm the public WhatsApp and support/privacy email, response hours and timezone. The Paynow recipient is not automatically the support or operator identity.
-- Confirm that `tamutswamatondo04@gmail.com` is the intended merchant recipient, that USD checkout is available, and how the operator will inspect Paynow transactions, fees and settlement.
+- Confirm the connected Cloudflare account and published `workers.dev` address are the intended production home. Configure the Access team/application/audience for the selected operator and create production Turnstile keys using [DEPLOYMENT.md](DEPLOYMENT.md). Put secrets only into private Wrangler prompts or encrypted dashboard fields.
+- Verify that the configured public WhatsApp and support/privacy email reach the owner's monitored accounts. Use the selected CAT response hours and review capacity before launch.
+- Verify USD checkout in the confirmed merchant account and establish how the operator will inspect Paynow transactions, fees and settlement.
 - Adopt or edit the displayed draft service terms: one consolidated revision, how/when customers submit it, cancellations, refund enquiries, supplied-information approval and delivery channel.
 - Approve or change the draft 180-day retention period; decide the treatment of financial records, private exports, customer logos and delivered-file copies. Establish a backup and cleanup schedule.
 - Confirm actual capacity and timing practice. Until then keep “We confirm your delivery time after reviewing your brief.” Choose when to pause intake.

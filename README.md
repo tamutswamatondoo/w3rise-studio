@@ -34,7 +34,7 @@ Browser checks use an installed Chrome or Edge on Windows. Set `PLAYWRIGHT_EXECU
 
 Deployed on 12 October 2026 at **https://w3rise-studio.w3rise-studio.workers.dev**. Production intake is deliberately paused in both configuration and D1. The production database contains zero orders. Anonymous operator pages, record reads, exports and actions are denied; the owner cannot sign in until Cloudflare Access is configured. Public pages and samples work. No real payment, customer delivery or demand test has occurred.
 
-The remaining launch gates are the owner's contact details and policies, Access identity/application, production Turnstile keys and private rate-limit salt, followed by authenticated production acceptance checks. Keep intake paused while completing them. Run `npm.cmd run test:deployed -- https://w3rise-studio.w3rise-studio.workers.dev` to repeat the anonymous paused-deployment checks without submitting a customer brief.
+The owner has supplied the operator/support email and WhatsApp number, confirmed the merchant recipient and delegated response-hour selection. The remaining launch gates are owner-approved policies, the Access application, production Turnstile keys and private rate-limit salt, followed by authenticated production acceptance checks. Keep intake paused while completing them. Run `npm.cmd run test:deployed -- https://w3rise-studio.w3rise-studio.workers.dev` to repeat the anonymous paused-deployment checks without submitting a customer brief.
 
 Follow [deployment instructions](docs/DEPLOYMENT.md), [operator guide](docs/OPERATOR.md) and [launch checklist and owner decisions](docs/LAUNCH.md). [Implementation milestones](docs/IMPLEMENTATION.md) record assumptions. See [font and original-asset licences](docs/ASSET-LICENSES.md).
 

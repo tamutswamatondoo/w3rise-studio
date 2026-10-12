@@ -2,7 +2,7 @@
 
 Deployed on 12 October 2026 at **https://w3rise-studio.w3rise-studio.workers.dev**, Worker version `23b8820b-c1a0-4a73-afd4-22c07b930c3a`, from source commit `4a9097371f6ed5c187f320eafd7fc9e658f9d5cc`. The authenticated owner-controlled account and actual `studio-db` D1 binding are recorded in `wrangler.jsonc`; the remote migration is applied. Intake is paused in configuration and the persistent database setting. Anonymous operator routes return 403 because Access configuration is still missing; owner sign-in is not yet available. No customer orders or payment records were created remotely.
 
-Account connection, database creation, migrations and the first paused deployment below are already complete for this installation. Continue with the missing owner settings, Access and Turnstile, then acceptance checks. Keep the Workers Free plan; do not enable paid subscriptions. No domain purchase is needed.
+Account connection, database creation, migrations and the first paused deployment below are already complete for this installation. Owner identity/contact details have been supplied; continue with Access, Turnstile, policy adoption and acceptance checks. Keep the Workers Free plan; do not enable paid subscriptions. No domain purchase is needed.
 
 ## 1. Verify the local build
 
@@ -30,24 +30,26 @@ Local migrations and test records do not populate the remote database. Preserve 
 
 ## 3. Configure the production values
 
-Set the owner's confirmed server-side values in `wrangler.jsonc`. `PUBLIC_ORIGIN` is already the actual deployed HTTPS origin. Missing configuration keeps intake closed and the private desk inaccessible. The merchant email decoded from the owner's supplied payment link is `tamutswamatondo04@gmail.com`; this is not an assumed support or Access login address.
+Set non-sensitive server-side values in `wrangler.jsonc`; configure owner identity and contact values privately as encrypted Worker bindings. `PUBLIC_ORIGIN` is already the actual deployed HTTPS origin. Missing configuration keeps intake closed and the private desk inaccessible. On 12 October 2026 the owner supplied the operator/support email and public WhatsApp, and confirmed the supplied Paynow merchant recipient. At the owner's request, response hours were selected as Monday–Friday, 09:00–17:00 CAT (Africa/Harare); delivery timing remains subject to brief review. Owner identity/contact values must not be committed to this public repository. Access and production Turnstile/secrets remain incomplete.
 
 | Value | Required action |
 | --- | --- |
 | `APP_ENV` | Keep `production`. |
 | `ORDERS_OPEN` | Keep `false` until the public acceptance checks pass. |
-| `PAYNOW_MERCHANT_EMAIL` | Confirm the supplied recipient belongs to the intended merchant. |
-| `SUPPORT_WHATSAPP` | Owner's working international number; follow the environment example's format. |
-| `SUPPORT_EMAIL` | Owner's monitored support/privacy email. |
-| `RESPONSE_HOURS` | Actual hours and timezone; do not invent a turnaround. |
+| `PAYNOW_MERCHANT_EMAIL` | Owner confirmed the supplied recipient. Verify USD checkout in the actual merchant account before launch. |
+| `SUPPORT_WHATSAPP` | Owner-supplied public number, stored privately as an encrypted Worker binding. |
+| `SUPPORT_EMAIL` | Owner-supplied support/privacy email, stored privately as an encrypted Worker binding. |
+| `RESPONSE_HOURS` | Monday–Friday, 09:00–17:00 CAT (Africa/Harare). Delivery timing is confirmed after brief review. |
 | `RETENTION_DAYS` | Owner-approved retention period; 180 days is a draft default. |
-| `OWNER_EMAIL` | Exact email authorized to operate the desk. |
+| `OWNER_EMAIL` | Owner-selected operator, stored privately as an encrypted Worker binding. The Access Allow policy must match this exact address. |
 | `ACCESS_TEAM_DOMAIN` | Zero Trust team hostname, e.g. `your-team.cloudflareaccess.com`. |
 | `ACCESS_AUD` | Audience tag of the Access application covering both private paths. |
 | `TURNSTILE_SITE_KEY` | Public site key for the production hostname. |
 | `PUBLIC_ORIGIN` | Actual HTTPS origin after the first paused deployment; no trailing slash. |
 
 `SUPPORT_WHATSAPP` must use `+` followed by the country code and number, without spaces. Intake remains closed unless the production contact, Access, origin, merchant and abuse-protection configuration is complete.
+
+`OWNER_EMAIL`, `SUPPORT_EMAIL` and `SUPPORT_WHATSAPP` are intentionally omitted from tracked `vars`. Set them through the Cloudflare encrypted configuration process; normal Wrangler deployments preserve existing secrets. Do not reintroduce these keys as plaintext `vars`, which can conflict with their encrypted bindings. The API intentionally publishes the two customer support values on the public website; the operator identity is not included in public configuration. Website contact publication does not authorize publishing the values in GitHub history.
 
 Create a [Turnstile widget](https://developers.cloudflare.com/turnstile/get-started/) restricted to the deployed hostname. Store its secret with Wrangler, never in `VITE_*` values or version control:
 
