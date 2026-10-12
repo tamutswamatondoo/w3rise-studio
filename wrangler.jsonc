@@ -15,9 +15,9 @@
     "PAYNOW_MERCHANT_EMAIL": "tamutswamatondo04@gmail.com",
     "RESPONSE_HOURS": "Monday–Friday, 09:00–17:00 CAT (Africa/Harare). We confirm delivery timing after reviewing your brief.",
     "RETENTION_DAYS": "90",
-    "ACCESS_TEAM_DOMAIN": "",
-    "ACCESS_AUD": "",
-    "TURNSTILE_SITE_KEY": "",
+    "ACCESS_TEAM_DOMAIN": "w3rise-studio.cloudflareaccess.com",
+    "ACCESS_AUD": "a0cd62ed1d0bc738f954520ead7c74911f5ccd0f911719c698f6d48c68542f82",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFUoXreTYy3yTk08",
     "PUBLIC_ORIGIN": "https://w3rise-studio.w3rise-studio.workers.dev"
   },
   "observability": { "enabled": false }
