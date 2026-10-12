@@ -228,6 +228,50 @@ describe('authentication and production fail closed', () => {
     expect(await authorize(jwtRequest(parts.join('.')), securedEnv)).toBe(false);
     expect((await handleRequest(jwtRequest(valid), securedEnv)).status).toBe(200);
   });
+  it('rejects correctly signed tokens with a non-application type or missing required claims', async () => {
+    const { privateKey, publicKey } = await generateKeyPair('RS256');
+    const jwk = await exportJWK(publicKey); jwk.kid = 'claim-test-key'; jwk.alg = 'RS256'; jwk.use = 'sig';
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ keys: [jwk] }), { headers: { 'content-type': 'application/json' } })));
+    const issuer = 'https://claim-test.cloudflareaccess.com';
+    const securedEnv = { ...env, APP_ENV: 'production', ACCESS_TEAM_DOMAIN: 'claim-test.cloudflareaccess.com', ACCESS_AUD: 'claim-test-audience', OWNER_EMAIL: 'owner@example.com' };
+    const now = Math.floor(Date.now() / 1000);
+    const claims: Record<string, unknown> = { iss: issuer, aud: securedEnv.ACCESS_AUD, exp: now + 300, iat: now, sub: 'owner-id', email: 'owner@example.com', type: 'app' };
+    const signedRequest = async (payload: Record<string, unknown>) => new Request('https://studio.example/api/admin/orders', {
+      headers: { 'Cf-Access-Jwt-Assertion': await new SignJWT(payload).setProtectedHeader({ alg: 'RS256', kid: 'claim-test-key' }).sign(privateKey) },
+    });
+    expect((await handleRequest(await signedRequest(claims), securedEnv)).status).toBe(200);
+    for (const type of ['org', 'service']) {
+      expect((await handleRequest(await signedRequest({ ...claims, type }), securedEnv)).status, `Reject token type ${type}`).toBe(403);
+    }
+    for (const claim of ['exp', 'iat', 'email', 'sub', 'type']) {
+      const incomplete = { ...claims }; delete incomplete[claim];
+      expect((await handleRequest(await signedRequest(incomplete), securedEnv)).status, `Reject missing ${claim}`).toBe(403);
+    }
+  });
+  it('rejects cross-origin admin mutations even with a valid owner token and preserves the saved pause', async () => {
+    const { privateKey, publicKey } = await generateKeyPair('RS256');
+    const jwk = await exportJWK(publicKey); jwk.kid = 'mutation-test-key'; jwk.alg = 'RS256'; jwk.use = 'sig';
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ keys: [jwk] }), { headers: { 'content-type': 'application/json' } })));
+    const productionOrigin = 'https://studio.example';
+    const securedEnv = { ...env, APP_ENV: 'production', PUBLIC_ORIGIN: productionOrigin, ACCESS_TEAM_DOMAIN: 'mutation-test.cloudflareaccess.com', ACCESS_AUD: 'mutation-test-audience', OWNER_EMAIL: 'owner@example.com' };
+    const token = await new SignJWT({ email: 'owner@example.com', type: 'app' }).setProtectedHeader({ alg: 'RS256', kid: 'mutation-test-key' }).setIssuer('https://mutation-test.cloudflareaccess.com').setAudience(securedEnv.ACCESS_AUD).setSubject('owner-id').setIssuedAt().setExpirationTime('5m').sign(privateKey);
+    const mutate = (ordersOpen: boolean, requestOrigin: string | null, requestHost = productionOrigin, fetchSite?: string) => {
+      const headers = new Headers({ 'Content-Type': 'application/json', 'Cf-Access-Jwt-Assertion': token });
+      if (requestOrigin !== null) headers.set('Origin', requestOrigin);
+      if (fetchSite) headers.set('Sec-Fetch-Site', fetchSite);
+      return handleRequest(new Request(requestHost + '/api/admin/settings', { method: 'POST', headers, body: JSON.stringify({ ordersOpen }) }), securedEnv);
+    };
+    expect((await mutate(false, productionOrigin)).status).toBe(200);
+    for (const attempt of [
+      () => mutate(true, 'https://evil.example'),
+      () => mutate(true, null),
+      () => mutate(true, productionOrigin, 'https://other-host.example'),
+      () => mutate(true, productionOrigin, productionOrigin, 'cross-site'),
+    ]) {
+      expect((await attempt()).status).toBe(403);
+      expect(await env.DB.prepare("SELECT value FROM settings WHERE key = 'orders_open'").first('value')).toBe('false');
+    }
+  });
 });
 
 describe('production intake abuse controls', () => {

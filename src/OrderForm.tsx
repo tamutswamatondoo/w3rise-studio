@@ -4,14 +4,14 @@ import type { Brief, PublicConfig } from '../shared/types';
 import { BRIEF_LIMITS, moneyToCents, validateBrief } from '../shared/validation';
 import { api, ApiError, whatsappLink } from './api';
 
-declare global { interface Window { turnstile?: { render: (container: HTMLElement, options: { sitekey: string; action: string; callback: (token: string) => void; 'expired-callback': () => void; 'error-callback': () => void }) => string; remove: (id: string) => void; reset: (id: string) => void } } }
+declare global { interface Window { turnstile?: { render: (container: HTMLElement, options: { sitekey: string; action: string; size: 'compact'; callback: (token: string) => void; 'expired-callback': () => void; 'error-callback': () => void }) => string; remove: (id: string) => void; reset: (id: string) => void } } }
 export const blankBrief: Brief = { customerName: '', businessName: '', whatsapp: '', email: '', location: '', tagline: '', brandColor: '#60735e', services: [{ name: '', priceCents: 0 }], featured: '', notes: '', acceptedTerms: false };
 
 function Challenge({ sitekey, onToken, resetKey }: { sitekey: string; onToken: (token: string) => void; resetKey: number }) {
   const container = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let id: string | undefined, disposed = false;
-    const render = () => { if (!disposed && container.current && window.turnstile) id = window.turnstile.render(container.current, { sitekey, action: 'order', callback: onToken, 'expired-callback': () => onToken(''), 'error-callback': () => onToken('') }); };
+    const render = () => { if (!disposed && container.current && window.turnstile) id = window.turnstile.render(container.current, { sitekey, action: 'order', size: 'compact', callback: onToken, 'expired-callback': () => onToken(''), 'error-callback': () => onToken('') }); };
     let script = document.querySelector<HTMLScriptElement>('script[data-turnstile]');
     if (!script) { script = document.createElement('script'); script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'; script.async = true; script.dataset.turnstile = 'true'; document.head.appendChild(script); }
     if (window.turnstile) render(); else script.addEventListener('load', render);
