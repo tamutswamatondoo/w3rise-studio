@@ -29,13 +29,13 @@ async function publicConfig(request: Request, env: Env): Promise<PublicConfig> {
   const setting = await env.DB.prepare("SELECT value FROM settings WHERE key = 'orders_open'").first<{ value: string }>();
   const requestedOpen = setting ? setting.value === 'true' : env.ORDERS_OPEN === 'true';
   const configured = !!publicOrigin(env) && !!accessIssuer(env) && !!env.PAYNOW_MERCHANT_EMAIL && isValidEmail(env.PAYNOW_MERCHANT_EMAIL) && !!env.SUPPORT_WHATSAPP && isValidWhatsapp(env.SUPPORT_WHATSAPP) && !!env.SUPPORT_EMAIL && isValidEmail(env.SUPPORT_EMAIL) && !!env.TURNSTILE_SITE_KEY && !!env.TURNSTILE_SECRET_KEY && (env.RATE_LIMIT_SALT?.length || 0) >= 32;
-  const days = Number(env.RETENTION_DAYS || 180);
+  const days = Number(env.RETENTION_DAYS || 90);
   return {
     ordersOpen: requestedOpen && (local || configured), local,
     supportEmail: env.SUPPORT_EMAIL && isValidEmail(env.SUPPORT_EMAIL) ? env.SUPPORT_EMAIL : '',
     supportWhatsapp: env.SUPPORT_WHATSAPP && isValidWhatsapp(env.SUPPORT_WHATSAPP) ? env.SUPPORT_WHATSAPP : '',
     responseHours: env.RESPONSE_HOURS || 'Response hours will be confirmed by the owner.',
-    retentionDays: Number.isInteger(days) && days >= 30 && days <= 3650 ? days : 180,
+    retentionDays: Number.isInteger(days) && days >= 30 && days <= 3650 ? days : 90,
     turnstileSiteKey: local ? '' : env.TURNSTILE_SITE_KEY || '',
   };
 }

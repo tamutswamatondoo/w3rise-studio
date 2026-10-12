@@ -4,6 +4,7 @@ node_modules/
 .cache/
 .vite/
 dist/
+worker-configuration.d.ts
 coverage/
 test-results/
 playwright-report/

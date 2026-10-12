@@ -14,7 +14,7 @@
     "ORDERS_OPEN": "false",
     "PAYNOW_MERCHANT_EMAIL": "tamutswamatondo04@gmail.com",
     "RESPONSE_HOURS": "Monday–Friday, 09:00–17:00 CAT (Africa/Harare). We confirm delivery timing after reviewing your brief.",
-    "RETENTION_DAYS": "180",
+    "RETENTION_DAYS": "90",
     "ACCESS_TEAM_DOMAIN": "",
     "ACCESS_AUD": "",
     "TURNSTILE_SITE_KEY": "",

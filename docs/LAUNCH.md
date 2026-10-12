@@ -4,18 +4,29 @@ Production orders stay paused until the following items are complete. This is a 
 
 The account connection, remote D1 migration and paused deployment at https://w3rise-studio.w3rise-studio.workers.dev are complete. Local fictional fulfilment passed; production remains empty. Public anonymous checks passed, but the Access owner sign-in flow and production Turnstile await configuration.
 
-Owner details supplied on 12 October 2026: operator/support email, public WhatsApp and confirmation of the supplied Paynow merchant recipient. Identity/contact values belong in private encrypted Cloudflare configuration. Response hours selected at the owner's request: Monday–Friday, 09:00–17:00 CAT (Africa/Harare). These configuration values do not complete Access, Turnstile, policy adoption or the controlled production test.
+Owner details supplied on 12 October 2026: operator/support email, public WhatsApp and confirmation of the supplied Paynow merchant recipient. Identity/contact values belong in private encrypted Cloudflare configuration. Response hours are Monday–Friday, 09:00–17:00 CAT (Africa/Harare). The owner has approved the business policies below and authorized the controlled fictional production test and opening only after every launch check passes. These decisions do not complete Access, production Turnstile or verification of actual USD checkout and merchant transaction visibility.
 
 The three owner/contact bindings and a cryptographically random rate-limit salt are now encrypted in Cloudflare; public email/WhatsApp links and hours are verified on the deployed site. The database still contains zero orders and its persistent pause is unchanged.
 
-## Owner decisions required together
+## Approved operating decisions
 
-- Confirm the connected Cloudflare account and published `workers.dev` address are the intended production home. Configure the Access team/application/audience for the selected operator and create production Turnstile keys using [DEPLOYMENT.md](DEPLOYMENT.md). Put secrets only into private Wrangler prompts or encrypted dashboard fields.
-- Verify that the configured public WhatsApp and support/privacy email reach the owner's monitored accounts. Use the selected CAT response hours and review capacity before launch.
-- Verify USD checkout in the confirmed merchant account and establish how the operator will inspect Paynow transactions, fees and settlement.
-- Adopt or edit the displayed draft service terms: one consolidated revision, how/when customers submit it, cancellations, refund enquiries, supplied-information approval and delivery channel.
-- Approve or change the draft 180-day retention period; decide the treatment of financial records, private exports, customer logos and delivered-file copies. Establish a backup and cleanup schedule.
-- Confirm actual capacity and timing practice. Until then keep “We confirm your delivery time after reviewing your brief.” Choose when to pause intake.
+- **Revision:** one consolidated customer request within seven calendar days of receiving the first drafts, submitted through WhatsApp. Record receipt and the deadline manually. Correct operator mistakes without consuming the included revision.
+- **Cancellations/refunds:** review each request case by case; the operator handles communication and any actual refund personally.
+- **Unpaid briefs:** a 90-day manual cleanup cutoff, measured from the last update, for unpaid orders without a provider transaction ID.
+- **Paid records:** retain required business/tax records for at least six years from the last entry under section 37B of the Income Tax Act, longer where applicable requirements or legal holds require it; see [ZIMRA's record-keeping guidance](https://www.zimra.co.zw/domestic-taxes/corporate/record-keeping-explained). Paid D1 orders remain preserved pending manual review; no financial-only archive or automatic paid-record deletion exists.
+- **Downloads/logos:** manually clean up design downloads and customer logos 30 days after final delivery, subject to required legal/dispute evidence. Keep legally required financial records and exports separately.
+- **Capacity/timing:** no more than three active paid orders. Check capacity and pause/reopen intake manually. Confirm timing individually after brief review and deliver through WhatsApp.
+- **Backups:** the private owner-selected folder and its three child folders have been created and verified. Its actual path belongs only in the ignored `.wrangler/owner-operations.json`; exports and backups remain outside Git.
+- **Production test/opening:** one clearly fictional production rehearsal is authorized. Opening for customers is authorized only after all checks pass; any incomplete or failed check keeps intake paused.
+
+The application enforces the one-revision allowance and payment/version/review gates. It does not enforce the seven-day deadline, three-order capacity or retention schedules, send files or issue refunds automatically.
+
+## Remaining setup and verification
+
+- Configure the Access team/application/audience for the selected operator and create production Turnstile keys using [DEPLOYMENT.md](DEPLOYMENT.md). Cloudflare MCP tools are still not loaded in the running Codex session; restart Codex/the IDE extension or sign in privately to the dashboard. Put secrets only into the private configuration process or encrypted dashboard fields.
+- Confirm the selected operator can sign in and the configured support routes reach monitored accounts. Signed-out visitors and a different identity must be denied records, exports and operator actions.
+- Restore access to the Paynow merchant account; the owner has confirmed they cannot currently access it. Then verify actual USD checkout and that the operator can inspect transaction ID, reference, amount, Paid status, fees and settlement. The supplied recipient is confirmed, but these checks remain unverified and block customer launch. Never substitute a screenshot, simulated record or invented confirmation for actual merchant verification.
+- Publish and check terms/privacy matching the approved policies, complete the authenticated fictional rehearsal below, inspect every output and confirm the manual backup/cleanup procedure.
 
 ## Before accepting a real order
 
@@ -23,10 +34,10 @@ The three owner/contact bindings and a cryptographically random rate-limit salt 
 - Verify samples clearly say “Sample concept — not a client project”; no invented results, affiliations or customer claims appear.
 - Read the exact scope: an A4 PDF, three Status PNGs, approved template customization and one consolidated revision for US$20. Printing, a new logo, editable source files and advertising placement are excluded.
 - Confirm contact actions reach the owner's actual account, the user chooses whether to send the WhatsApp message, and failure fallback preserves the brief.
-- The full fictional workflow has passed locally. After configuring Access/Turnstile and explicitly authorizing a controlled launch test, repeat it in production through scope, manual test verification, generation, visual review and recorded test delivery. Keep intake paused throughout configuration and anonymous verification; pause it again immediately after the authorized test submission. Confirm public visitors cannot read orders and test orders do not affect live totals.
+- The full fictional workflow has passed locally. After configuring Access/Turnstile, run the already-authorized production rehearsal through scope, visibly simulated payment/settlement verification, generation, visual review, recorded simulated delivery and revision. Keep intake paused throughout configuration and anonymous verification; open only for the fictional submission, then pause immediately. Mark the record fictional/test before simulated payment handling. Confirm public visitors cannot read orders and test orders do not affect live totals. This technical rehearsal does not resolve the actual Paynow USD/merchant launch blocker.
 - Open every export; inspect the PDF at readable size and three PNGs at their full dimensions. Confirm revised content loses approval and unpaid/unreviewed orders are blocked.
 - Confirm public terms/privacy reflect the chosen policies and the real canonical/share origin. Read [verification limitations](VERIFICATION.md).
-- Open intake, submit one genuine brief only when ready, personally confirm its scope/timing, and send the order-specific USD payment instructions.
+- Open intake only after every launch check passes. For the first genuine brief, check the three-active-paid-order limit, personally confirm scope/timing and send the order-specific USD payment instructions. Do not invent customer details or payment confirmations to pass a check.
 
 ## Small demand test
 
