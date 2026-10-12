@@ -1,6 +1,6 @@
 # Cloudflare deployment
 
-Deployed on 12 October 2026 at **https://w3rise-studio.w3rise-studio.workers.dev**, Worker version `23b8820b-c1a0-4a73-afd4-22c07b930c3a`, from source commit `4a9097371f6ed5c187f320eafd7fc9e658f9d5cc`. The authenticated owner-controlled account and actual `studio-db` D1 binding are recorded in `wrangler.jsonc`; the remote migration is applied. Intake is paused in configuration and the persistent database setting. Anonymous operator routes return 403 because Access configuration is still missing; owner sign-in is not yet available. No customer orders or payment records were created remotely.
+Deployed on 12 October 2026 at **https://w3rise-studio.w3rise-studio.workers.dev**, Worker version `046cccf9-f62d-4f2e-a963-2cbe2e071a4f`, from source commit `e866828bb4a9f913727e4a63fa24796d79b8ff58`. The authenticated owner-controlled account and actual `studio-db` D1 binding are recorded in `wrangler.jsonc`; the remote migration is applied. Owner/support identity, contacts and a cryptographically random rate-limit salt are encrypted Worker bindings; public support links and CAT hours are verified. Intake is paused in configuration and the persistent database setting. Anonymous operator routes return 403 because Access configuration is still missing; owner sign-in is not yet available. No customer orders or payment records were created remotely.
 
 Account connection, database creation, migrations and the first paused deployment below are already complete for this installation. Owner identity/contact details have been supplied; continue with Access, Turnstile, policy adoption and acceptance checks. Keep the Workers Free plan; do not enable paid subscriptions. No domain purchase is needed.
 
@@ -30,7 +30,7 @@ Local migrations and test records do not populate the remote database. Preserve 
 
 ## 3. Configure the production values
 
-Set non-sensitive server-side values in `wrangler.jsonc`; configure owner identity and contact values privately as encrypted Worker bindings. `PUBLIC_ORIGIN` is already the actual deployed HTTPS origin. Missing configuration keeps intake closed and the private desk inaccessible. On 12 October 2026 the owner supplied the operator/support email and public WhatsApp, and confirmed the supplied Paynow merchant recipient. At the owner's request, response hours were selected as Monday–Friday, 09:00–17:00 CAT (Africa/Harare); delivery timing remains subject to brief review. Owner identity/contact values must not be committed to this public repository. Access and production Turnstile/secrets remain incomplete.
+Set non-sensitive server-side values in `wrangler.jsonc`; configure owner identity and contact values privately as encrypted Worker bindings. `PUBLIC_ORIGIN` is already the actual deployed HTTPS origin. Missing configuration keeps intake closed and the private desk inaccessible. On 12 October 2026 the owner supplied the operator/support email and public WhatsApp, and confirmed the supplied Paynow merchant recipient. At the owner's request, response hours were selected as Monday–Friday, 09:00–17:00 CAT (Africa/Harare); delivery timing remains subject to brief review. Owner identity/contact values must not be committed to this public repository. Access and production Turnstile remain incomplete; the four owner/contact/rate-limit secret bindings are installed.
 
 | Value | Required action |
 | --- | --- |
@@ -51,16 +51,11 @@ Set non-sensitive server-side values in `wrangler.jsonc`; configure owner identi
 
 `OWNER_EMAIL`, `SUPPORT_EMAIL` and `SUPPORT_WHATSAPP` are intentionally omitted from tracked `vars`. Set them through the Cloudflare encrypted configuration process; normal Wrangler deployments preserve existing secrets. Do not reintroduce these keys as plaintext `vars`, which can conflict with their encrypted bindings. The API intentionally publishes the two customer support values on the public website; the operator identity is not included in public configuration. Website contact publication does not authorize publishing the values in GitHub history.
 
-Create a [Turnstile widget](https://developers.cloudflare.com/turnstile/get-started/) restricted to the deployed hostname. Store its secret with Wrangler, never in `VITE_*` values or version control:
+Create a [Turnstile widget](https://developers.cloudflare.com/turnstile/get-started/) restricted to `w3rise-studio.w3rise-studio.workers.dev`. Set its public site key in `TURNSTILE_SITE_KEY`. In the Cloudflare dashboard, open **Workers & Pages → w3rise-studio → Settings → Variables and Secrets** and add `TURNSTILE_SECRET_KEY` with type **Secret**, then deploy the changes. Follow the official [encrypted configuration instructions](https://developers.cloudflare.com/workers/configuration/secrets/). Keep the secret key out of `VITE_*` values and version control. If an agent performs Turnstile retrieval through a CLI, use the approved canonical Wrangler outside the project; do not pass secrets through project package scripts or package resolution.
 
-```powershell
-npx.cmd wrangler secret put TURNSTILE_SECRET_KEY --config wrangler.jsonc
-npx.cmd wrangler secret put RATE_LIMIT_SALT --config wrangler.jsonc
-```
+`RATE_LIMIT_SALT` is already an encrypted binding in this installation, created from 32 cryptographically random bytes without printing or writing its value to disk. Preserve it during subsequent deployments. For a fresh installation only, create a cryptographically random value of at least 32 characters and store it as a Secret through the private configuration process. It salts short-lived visitor rate-limit hashes; do not reuse a personal password.
 
-Use a cryptographically random `RATE_LIMIT_SALT` of at least 32 characters; it salts short-lived visitor rate-limit hashes. Store it with the owner's private secrets. Do not reuse a personal password.
-
-Enter secrets only into Wrangler's interactive private prompts or the Cloudflare dashboard's encrypted Worker secret fields. Never send them in chat, command arguments, Git or screenshots. Account IDs, D1 IDs, the Access audience and the Turnstile site key are configuration identifiers, not substitute credentials. No missing secret has been filled with a placeholder.
+Enter secrets only through the private configuration process or the Cloudflare dashboard's encrypted Worker secret fields. Never send them in chat, command arguments, Git or screenshots. Account IDs, D1 IDs, the Access audience and the Turnstile site key are configuration identifiers, not substitute credentials. No missing secret has been filled with a placeholder.
 
 The site key is intentionally public. A secret key, Cloudflare API token and Access JWT must stay outside browser bundles. Local optional values belong in the ignored `.dev.vars` file, following the environment example. Do not use Turnstile test keys in production.
 
@@ -101,6 +96,8 @@ Approve the public terms, cancellation/refund and revision-request rules, retent
 ## Codex Cloudflare tools
 
 The official [Cloudflare agent setup](https://developers.cloudflare.com/agent-setup/prompt.md) was completed: all 17 skills from `cloudflare/skills` were installed globally at revision `c430dd965cea3a8faf0ef035e3b3d73b38518081`, and the `cloudflare` MCP server at `https://mcp.cloudflare.com/mcp` was added and authorized with OAuth. Global configuration is in `C:\Users\Tamutswa\.codex\config.toml`; skills are in `C:\Users\Tamutswa\.codex\skills`. These private user-level files are outside this repository. Restart Codex/the IDE extension to load the new tools. Wrangler login and MCP authorization are separate and both succeeded. The optional beta `cf` CLI was not needed for this Wrangler project.
+
+At the final contact verification, the running Codex session still had no Cloudflare MCP tools loaded. Its separate in-app browser reached the Cloudflare sign-in page and did not share the earlier authorization session. Resume after restarting Codex/the IDE extension with the authorized MCP connection, or sign in privately to the dashboard for the owner setup above. No new API token, password or Turnstile secret should be sent in chat. Access and Turnstile are still pending; the working Wrangler deployment connection alone does not establish them.
 
 ## Free-tier limits and practical limits
 

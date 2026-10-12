@@ -6,6 +6,8 @@ The account connection, remote D1 migration and paused deployment at https://w3r
 
 Owner details supplied on 12 October 2026: operator/support email, public WhatsApp and confirmation of the supplied Paynow merchant recipient. Identity/contact values belong in private encrypted Cloudflare configuration. Response hours selected at the owner's request: Monday–Friday, 09:00–17:00 CAT (Africa/Harare). These configuration values do not complete Access, Turnstile, policy adoption or the controlled production test.
 
+The three owner/contact bindings and a cryptographically random rate-limit salt are now encrypted in Cloudflare; public email/WhatsApp links and hours are verified on the deployed site. The database still contains zero orders and its persistent pause is unchanged.
+
 ## Owner decisions required together
 
 - Confirm the connected Cloudflare account and published `workers.dev` address are the intended production home. Configure the Access team/application/audience for the selected operator and create production Turnstile keys using [DEPLOYMENT.md](DEPLOYMENT.md). Put secrets only into private Wrangler prompts or encrypted dashboard fields.
